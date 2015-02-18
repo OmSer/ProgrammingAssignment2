@@ -25,7 +25,6 @@ makeCacheMatrix <- function(x = matrix()) {
 # calculation. If not, it calculates the inverse, sets the value in the cache via
 # setinv function.
 
-
 cacheSolve <- function(x, ...) {
   inverse <- x$getinv()
   # if the inverse has already been calculated
@@ -35,7 +34,26 @@ cacheSolve <- function(x, ...) {
   }
   
   data <- x$get()
+  ## > ?solve
   inverse <- solve(data)
   x$setinv(inverse)
   inverse
 }
+
+## Usage:
+## > source("cachematrix.R")
+## > x = rbind(c(1, 2), c(0 ,1))
+## > m = makeCacheMatrix(x)
+## > m$get()
+## [,1] [,2]
+## [1,]    1    2
+## [2,]    0    1
+## > cacheSolve(m)
+## [,1] [,2]
+## [1,]    1   -2
+## [2,]    0    1
+## > cacheSolve(m)
+## getting cached data
+## [,1] [,2]
+## [1,]    1   -2
+## [2,]    0    1
